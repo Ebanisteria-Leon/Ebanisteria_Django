@@ -1,0 +1,1 @@
+web: gunicorn ebanisteria_django.wsgi --log-file -
