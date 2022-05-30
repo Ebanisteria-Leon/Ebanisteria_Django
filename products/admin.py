@@ -11,11 +11,11 @@ class ProductoAdmin(admin.ModelAdmin):
 class PromocionAdmin(admin.ModelAdmin):
     list_display = ('idPromociones', 'nombre')
 
-class ImagenesProductosAdmin(admin.ModelAdmin):
-    list_display = ('idImagenes', 'nombreProducto')
+"""class ImagenesProductosAdmin(admin.ModelAdmin):
+    list_display = ('idImagenes', 'nombreProducto')"""
 
 # Register your models here.
 admin.site.register(Categoria, CategoriaAdmin)
 admin.site.register(Producto, ProductoAdmin)
 admin.site.register(Promocion, PromocionAdmin)
-admin.site.register(ImagenesProductos, ImagenesProductosAdmin)
+#admin.site.register(ImagenesProductos, ImagenesProductosAdmin)

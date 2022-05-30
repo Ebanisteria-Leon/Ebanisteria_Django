@@ -18,7 +18,7 @@ class Categoria(BaseModel):
         return self.nombreCategoria
 
 #* Tabla Imagenes
-class ImagenesProductos(BaseModel):
+"""class ImagenesProductos(BaseModel):
     idImagenes = models.AutoField(primary_key = True, verbose_name = 'Identificador de Imagenes')
     nombreProducto = models.CharField(verbose_name = 'Nombre producto Imagenes', null = True, blank = True, max_length = 50)
     imagenProducto = models.ImageField(verbose_name = 'Imagen de los productos', null = True, blank = True, upload_to = 'products/')
@@ -28,7 +28,7 @@ class ImagenesProductos(BaseModel):
         verbose_name_plural = 'Imagenes'
     
     def __str__(self):
-        return self.nombreProducto
+        return self.nombreProducto"""
 
 #* Tabla de productos
 class Producto(BaseModel):
@@ -42,13 +42,15 @@ class Producto(BaseModel):
     ancho = models.CharField(max_length = 50, verbose_name = 'Medidas del Producto(Anchura)')
     color = models.CharField(max_length = 255, null = True, blank = True)
     calificacion = models.PositiveSmallIntegerField(default = 0, verbose_name = 'Calificacion de productos')
+    
+    imagen = models.ImageField(verbose_name = 'Nombre producto Imagenes', null = True, blank = True, max_length = 255)
 
     fechaInicio = models.DateField(verbose_name = 'Fecha de Inicio')
     fechaFinalizacion = models.DateField(verbose_name = 'Fecha de Finalizacion')
 
     estadoProducto = models.CharField(max_length = 15, verbose_name = 'Estado del Producto') #Enviado, Cancelado y Pendiente
-    idCategoria = models.ManyToManyField(Categoria, verbose_name = 'Indicador de Categoria')
-    idImagenes = models.ManyToManyField(ImagenesProductos, verbose_name='Indentificador de Imagen')
+    idCategoria = models.ForeignKey(Categoria, on_delete = models.CASCADE,verbose_name = 'Indicador de Categoria')
+    #idImagenes = models.ManyToManyField(ImagenesProductos, verbose_name='Indentificador de Imagen')
 
     class Meta:
         verbose_name = 'Producto'

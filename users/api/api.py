@@ -31,7 +31,7 @@ class UserViewSet(viewsets.GenericViewSet):
         
         return self.queryset
     
-    @action(detail = True, methods = ['post'], url_path = 'new_password')
+    @action(detail = True, methods = ['post'])
     def set_password(self, request, pk = None):
         user = self.get_object(pk)
         password_serializer = PasswordSerializers(data = request.data)
@@ -100,7 +100,7 @@ class UserViewSet(viewsets.GenericViewSet):
     def destroy(self, request, pk = None):
         user_destroy = self.model.objects.filter(id = pk).update(is_active = False)
         
-        if len(user_destroy) == 1:
+        if user_destroy == 1:
             return Response({
                 'message': 'Usuario eliminado correctamente!'
             }, status = status.HTTP_204_NO_CONTENT)
