@@ -4,7 +4,6 @@ from products.api.serializer.image_serializers import *
 
 from rest_framework import serializers
 
-
 class ProductoSerializers(serializers.ModelSerializer):
     #idCategoria = CategoriaSerializers(many = True, read_only = True)
     #idImagenes = ImagenesProductoSerializers(many = True, read_only = True)
@@ -58,9 +57,8 @@ class ProductoSerializers(serializers.ModelSerializer):
             'fechaFinalizacion': instance.fechaFinalizacion,
             
             'estadoProducto': instance.estadoProducto,
-            'idCategoria': instance.idCategoria.nombre if instance.idCategoria is not None else ''
+            'idCategoria': instance.idCategoria.nombreCategoria if instance.idCategoria is not None else ''
         }
-
 
 class ProductoRetrieveSerializer(serializers.ModelSerializer):
 
