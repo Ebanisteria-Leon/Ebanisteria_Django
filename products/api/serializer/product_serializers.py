@@ -6,8 +6,8 @@ from rest_framework import serializers
 
 
 class ProductoSerializers(serializers.ModelSerializer):
-    idCategoria = CategoriaSerializers(many = True, read_only = True)
-    idImagenes = ImagenesProductoSerializers(many = True, read_only = True)
+    #idCategoria = CategoriaSerializers(many = True, read_only = True)
+    #idImagenes = ImagenesProductoSerializers(many = True, read_only = True)
 
     class Meta:
         model = Producto
@@ -20,12 +20,12 @@ class ProductoSerializers(serializers.ModelSerializer):
 
         return value
 
-    def validate_image(self, value):
+    """def validate_image(self, value):
         if value == '' or value == None:
             raise serializers.ValidationError(
                 'Debe ingresar una Imagen de Producto')
 
-        return value
+        return value"""
 
     def validate(self, data):
         if 'idCategoria' not in data.keys():
@@ -33,14 +33,14 @@ class ProductoSerializers(serializers.ModelSerializer):
                 'idCategoria': 'Debe ingresar una Categoria de Producto'
             })
 
-        if 'idImagenes' not in data.keys():
+        """if 'idImagenes' not in data.keys():
             raise serializers.ValidationError({
                 'idImagenes': 'Debe ingresar una Imagen de Producto'
-            })
+            })"""
 
         return data
 
-    """def to_representation(self, instance):
+    def to_representation(self, instance):
         return {
             'idProducto': instance.idProducto,
             'nombre': instance.nombre,
@@ -52,14 +52,14 @@ class ProductoSerializers(serializers.ModelSerializer):
             'ancho': instance.ancho,
             'color': instance.color,
             'calificacion': instance.calificacion,
+            'imagen': instance.imagen.url if instance.imagen != '' else '',
             
             'fechaInicio': instance.fechaInicio,
             'fechaFinalizacion': instance.fechaFinalizacion,
             
             'estadoProducto': instance.estadoProducto,
-            'idCategoria': instance.idCategoria,
-            'idImagenes': instance.idImagenes
-        }"""
+            'idCategoria': instance.idCategoria.nombre if instance.idCategoria is not None else ''
+        }
 
 
 class ProductoRetrieveSerializer(serializers.ModelSerializer):
