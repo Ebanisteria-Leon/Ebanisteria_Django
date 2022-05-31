@@ -5,7 +5,8 @@ from products.api.serializer.image_serializers import *
 from rest_framework import serializers
 
 class ProductoSerializers(serializers.ModelSerializer):
-    #idCategoria = CategoriaSerializers(many = True, read_only = True)
+    idCategoria = StringRelatedField(many = True)
+    # idCategoria = CategoriaSerializers(many = True, read_only = True)
     #idImagenes = ImagenesProductoSerializers(many = True, read_only = True)
 
     class Meta:
@@ -39,7 +40,7 @@ class ProductoSerializers(serializers.ModelSerializer):
 
         return data
 
-    def to_representation(self, instance):
+    """def to_representation(self, instance):
         return {
             'idProducto': instance.idProducto,
             'nombre': instance.nombre,
@@ -58,7 +59,7 @@ class ProductoSerializers(serializers.ModelSerializer):
             
             'estadoProducto': instance.estadoProducto,
             'idCategoria': instance.idCategoria.nombreCategoria if instance.idCategoria is not None else ''
-        }
+        }"""
 
 class ProductoRetrieveSerializer(serializers.ModelSerializer):
 
