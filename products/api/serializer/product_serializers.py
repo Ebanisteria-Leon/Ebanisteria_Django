@@ -5,7 +5,7 @@ from products.api.serializer.image_serializers import *
 from rest_framework import serializers
 
 class ProductoSerializers(serializers.ModelSerializer):
-    idCategoria = StringRelatedField(many = True)
+    idCategoria = serializers.StringRelatedField(many = True)
     # idCategoria = CategoriaSerializers(many = True, read_only = True)
     #idImagenes = ImagenesProductoSerializers(many = True, read_only = True)
 
