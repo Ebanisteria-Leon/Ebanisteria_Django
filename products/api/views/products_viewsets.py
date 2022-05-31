@@ -4,6 +4,8 @@ from rest_framework.parsers import JSONParser, MultiPartParser
 
 from products.api.serializer.product_serializers import *
 
+from base.utils import validate_files
+
 #* Create and List for productos API
 class ProductoViewSet(viewsets.ModelViewSet):
     serializer_class = ProductoSerializers
@@ -27,9 +29,8 @@ class ProductoViewSet(viewsets.ModelViewSet):
         return Response(data, status = status.HTTP_200_OK)
 
     def create(self, request):
-        
-        # data = validate_files(request.data, 'image')
-        serializer = self.serializer_class(data = request.data)
+        data = validate_files(request.data, 'imagen')
+        serializer = self.serializer_class(data = data)
         
         if serializer.is_valid():
             serializer.save()
