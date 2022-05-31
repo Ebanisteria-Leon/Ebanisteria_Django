@@ -43,8 +43,7 @@ class Producto(BaseModel):
     color = models.CharField(max_length = 255, null = True, blank = True)
     calificacion = models.PositiveSmallIntegerField(default = 0, verbose_name = 'Calificacion de productos')
     
-    imagen = models.ImageField(verbose_name='Nombre producto Imagenes',
-                               null=True, blank=True, max_length=255, upload_to='products/')
+    imagen = models.ImageField(verbose_name = 'Nombre producto Imagenes', null = True, blank = True, max_length = 255, upload_to = 'products/')
 
     fechaInicio = models.DateField(verbose_name = 'Fecha de Inicio')
     fechaFinalizacion = models.DateField(verbose_name = 'Fecha de Finalizacion')
