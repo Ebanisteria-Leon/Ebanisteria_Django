@@ -17,18 +17,13 @@ class Categoria(BaseModel):
     def __str__(self):
         return self.nombreCategoria
 
-#* Tabla Imagenes
-"""class ImagenesProductos(BaseModel):
-    idImagenes = models.AutoField(primary_key = True, verbose_name = 'Identificador de Imagenes')
-    nombreProducto = models.CharField(verbose_name = 'Nombre producto Imagenes', null = True, blank = True, max_length = 50)
-    imagenProducto = models.ImageField(verbose_name = 'Imagen de los productos', null = True, blank = True, upload_to = 'products/')
-
-    class Meta:
-        verbose_name = 'Imagen'
-        verbose_name_plural = 'Imagenes'
-    
-    def __str__(self):
-        return self.nombreProducto"""
+opciones_estados = [
+    [0, 'Nuevo'],
+    [1, 'Cancelado'],
+    [2, 'Pendiente'],
+    [3, 'Enviado'],
+    [4, 'Produccion'],
+]
 
 #* Tabla de productos
 class Producto(BaseModel):
@@ -44,13 +39,15 @@ class Producto(BaseModel):
     calificacion = models.PositiveSmallIntegerField(default = 0, verbose_name = 'Calificacion de productos')
     
     imagen = models.CharField(verbose_name = 'Nombre producto Imagenes', null = True, blank = True, max_length = 255)
+    imagen2 = models.TextField(verbose_name = 'Nombre producto Imagenes 2', null = True, blank = True)
+
+    destacados = models.BooleanField(verbose_name = 'Productos destacados', default = True)
 
     fechaInicio = models.DateField(verbose_name = 'Fecha de Inicio')
     fechaFinalizacion = models.DateField(verbose_name = 'Fecha de Finalizacion')
 
-    estadoProducto = models.CharField(max_length = 15, verbose_name = 'Estado del Producto') #Enviado, Cancelado y Pendiente
+    estadoProducto = models.IntegerField(verbose_name = 'Estado del Producto', choices = opciones_estados, default = 0)
     idCategoria = models.ForeignKey(Categoria, on_delete = models.CASCADE,verbose_name = 'Indicador de Categoria')
-    #idImagenes = models.ManyToManyField(ImagenesProductos, verbose_name='Indentificador de Imagen')
 
     class Meta:
         verbose_name = 'Producto'
