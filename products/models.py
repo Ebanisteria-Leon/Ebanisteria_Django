@@ -39,7 +39,7 @@ class Producto(BaseModel):
     color = models.CharField(max_length = 255, null = True, blank = True)
     calificacion = models.PositiveSmallIntegerField(default = 0, verbose_name = 'Calificacion de productos')
     
-    imagen = models.CharField(verbose_name = 'Nombre producto Imagenes', null = True, blank = True, max_length = 255)
+    imagen = models.TextField(verbose_name = 'Nombre producto Imagenes', null = True, blank = True)
     imagen2 = models.TextField(verbose_name = 'Nombre producto Imagenes 2', null = True, blank = True)
 
     # destacados = models.BooleanField(verbose_name = 'Productos destacados', default = True)
