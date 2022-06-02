@@ -19,11 +19,7 @@ class Categoria(BaseModel):
 
 opciones_estados = [
     [0, 'Nuevo'],
-    [1, 'Cancelado'],
-    [2, 'Pendiente'],
-    [3, 'Enviado'],
-    [4, 'Produccion'],
-    [5, 'Destacado'],
+    [1, 'Destacado'],
 ]
 
 #* Tabla de productos
@@ -41,8 +37,6 @@ class Producto(BaseModel):
     
     imagen = models.TextField(verbose_name = 'Nombre producto Imagenes', null = True, blank = True)
     imagen2 = models.TextField(verbose_name = 'Nombre producto Imagenes 2', null = True, blank = True)
-
-    # destacados = models.BooleanField(verbose_name = 'Productos destacados', default = True)
 
     fechaInicio = models.DateField(verbose_name = 'Fecha de Inicio')
     fechaFinalizacion = models.DateField(verbose_name = 'Fecha de Finalizacion')
