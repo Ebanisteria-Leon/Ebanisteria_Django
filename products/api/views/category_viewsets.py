@@ -37,17 +37,21 @@ class CategoriaViewSet(viewsets.ModelViewSet):
         return Response({'error': 'No existe una Categoria con estos datos!'}, status = status.HTTP_400_BAD_REQUEST)
     
     def update(self, request, pk = None):
-        if self.get_object().exists():
-            serializer = self.serialzer_class(instance = self.get_object().get(), data = request.data)
-            if serializer.is_valid():
-                serializer.save()
+        if self.get_queryset(pk):
+            categoria_serializer = self.serializer_class(self.get_queryset(pk), data = request.data)
+
+            if categoria_serializer.is_valid():
+                categoria_serializer.save()
                 return Response({'message': 'Categoria Actualizada Correctamente!'}, status = status.HTTP_200_OK)
-            
-        return Response({'message': 'No se puedo Actualizar la Categoria!', 'error': serializer.errors}, status = status.HTTP_400_BAD_REQUEST)
-    
-    def destroy(self, request, pk = None):
-        if self.get_object().exists():
-            self.get_object().get().estadoCreacion = False
-            return Response({'message':'Categoría eliminada correctamente!'}, status = status.HTTP_200_OK)
-        
-        return Response({'message':'No se puedo Eliminar la Categoria!', 'error':'No existe una Categoria con estos datos!'}, status = status.HTTP_400_BAD_REQUEST)
+
+        return Response({'message': 'No se puedo Actualizar la Categoria!', 'error': categoria_serializer.errors}, status = status.HTTP_400_BAD_REQUEST)
+
+    def destroy(self, request, pk=None):
+        categoria = self.get_queryset().filter(idCategoria = pk).first()
+
+        if categoria:
+            categoria.estadoCreacion = False
+            categoria.save()
+            return Response({'message': 'Categoría eliminada correctamente!'}, status = status.HTTP_200_OK)
+
+        return Response({'message': 'No se puedo Eliminar la Categoria!', 'error': 'No existe una Categoria con estos datos!'}, status = status.HTTP_400_BAD_REQUEST)
