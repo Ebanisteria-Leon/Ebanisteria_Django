@@ -10,10 +10,11 @@ from products.models import *
 
 #* Tabla de Tipo de pago
 class TipoPago(BaseModel):
+    idTipoPago = models.AutoField(primary_key = True, verbose_name = 'Identificador de Tipo de Pago')
     nombre = models.CharField('Nombre de Medio de Pago', max_length = 100)
 
     class Meta:
-        ordering = ['id']
+        ordering = ['idTipoPago']
         verbose_name = 'Medio de Pago'
         verbose_name_plural = 'Medio de Pagos'
 
@@ -22,15 +23,22 @@ class TipoPago(BaseModel):
 
 
 class ComprobantePago(BaseModel):
+    idComprobantePago = models.AutoField(primary_key = True, verbose_name = 'Identificador de Comprobante de Pago')
     nombre = models.CharField('Nombre de comprobante de Pago', max_length = 100)
 
     class Meta:
-        ordering = ['id']
+        ordering = ['idComprobantePago']
         verbose_name = 'Comprobante'
         verbose_name_plural = 'Comprobantes'
 
     def __str__(self):
         return self.name
+
+
+opciones_compra = [
+    [0, 'Cancelado'],
+    [1, 'Finalizado'],
+]
 
 #* Tabla de detalles compra
 class DetallesCompra(BaseModel):
@@ -42,11 +50,11 @@ class DetallesCompra(BaseModel):
 
     fechaCompra = models.DateField(verbose_name = 'Fecha Compra', auto_now = False, auto_now_add = False)
 
-    estadoCompra = models.CharField(max_length = 15, verbose_name = 'Estado de la Compra', default = '')
+    estadoCompra = models.IntegerField(choices = opciones_compra, verbose_name = 'Estado de la Compra', default = 0)
     comprobante_number = models.CharField(max_length = 50, verbose_name = 'Numero de comprobante', default = '')
 
-    idComprobante = models.ForeignKey(ComprobantePago, on_delete = models.CASCADE)
-    idTipoPago = models.ForeignKey(TipoPago, on_delete = models.CASCADE)
+    idComprobante = models.ForeignKey(ComprobantePago, on_delete = models.CASCADE, verbose_name = 'Identificador de Comprobante de Pago')
+    idTipoPago = models.ForeignKey(TipoPago, on_delete = models.CASCADE, verbose_name = 'Identificador de tipo de Pago')
     idProductos = models.ManyToManyField(Producto, verbose_name = 'Indicador del Producto')
     idPersona = models.ForeignKey(User, on_delete = models.CASCADE, verbose_name = 'Indicador de la Persona')
 
@@ -56,12 +64,20 @@ class DetallesCompra(BaseModel):
     def __str__(self):
         return f'Detalles de la compra en la fecha : {self.fechaCompra}'
 
+opciones_pedidos = [
+    [0, 'Pendiente'],
+    [1, 'Cancelado'],
+    [2, 'Produccion'],
+]
+
 #* Tabla de pedidosPendientes
 class PedidosPendiente(BaseModel):
     idPedidosPendientes = models.AutoField(primary_key = True, verbose_name = 'Identificador de los Pedidos')
     fechaPedido = models.DateField(verbose_name = 'Fecha del Pedido')
-    estadoPedido = models.CharField(
-        max_length = 15, verbose_name = 'Estado del Pedido')
+    estadoPedido = models.IntegerField(choices = opciones_pedidos, verbose_name = 'Estado del Pedido', default = 0)
+    
+    idComprobante = models.ForeignKey(ComprobantePago, on_delete = models.CASCADE, verbose_name='Identificador de Comprobante de Pago')
+    idTipoPago = models.ForeignKey(TipoPago, on_delete = models.CASCADE, verbose_name = 'Identificador de tipo de Pago')
     idProducto = models.ManyToManyField(Producto, verbose_name = 'Identificador del Producto')
     idPersona = models.ForeignKey(User, on_delete = models.CASCADE, verbose_name = 'Identificador de la Persona')
 

@@ -5,8 +5,7 @@ from rest_framework import serializers
 class PedidosPendientesSerializers(serializers.ModelSerializer):
     class Meta:
         model = PedidosPendiente
-        exclude = ('estadoCreacion', 'fechaCreacion',
-                   'fechaModificacion', 'fechaEliminacion')
+        exclude = ('estadoCreacion', 'fechaCreacion', 'fechaModificacion', 'fechaEliminacion')
 
     def to_representation(self, instance):
         return {
@@ -14,10 +13,14 @@ class PedidosPendientesSerializers(serializers.ModelSerializer):
 
             'fechaPedido': instance.fechaPedido,
             'estadoPedido': instance.estadoPedido,
+            
+            'estadoPedido': instance.estadoPedido,
 
             'idProducto': [
+                instance.idProducto.idProducto,
                 instance.idProducto.nombre,
-                instance.idProducto.descripcion
+                instance.idProducto.descripcion,
+                instance.idProducto.valor
             ],
 
             'idPersona': [
@@ -25,15 +28,17 @@ class PedidosPendientesSerializers(serializers.ModelSerializer):
                 instance.idPersona.name,
                 instance.idPersona.last_name,
                 instance.idPersona.email
-            ]
+            ],
+            
+            'idComprobantePago': instance.nombre,
+            'idTipoPago': instance.nombre
         }
 
 
 class DetallesCompraSerializers(serializers.ModelSerializer):
     class Meta:
         model = DetallesCompra
-        exclude = ('estadoCreacion', 'fechaCreacion',
-                   'fechaModificacion', 'fechaEliminacion')
+        exclude = ('estadoCreacion', 'fechaCreacion', 'fechaModificacion', 'fechaEliminacion')
 
     def to_representation(self, instance):
         return {
@@ -44,7 +49,12 @@ class DetallesCompraSerializers(serializers.ModelSerializer):
             'vTotal': instance.vTotal,
 
             'fechaCompra': instance.fechaCompra,
-            'TipoPago': instance.TipoPago,
+            
+            'comprobante_number': instance.comprobante_number,
+            'estadoCompra': instance.estadoCompra,
+            
+            'idComprobantePago': instance.nombre,
+            'idTipoPago': instance.nombre,
 
             'idProducto': [
                 instance.idProducto.nombre,
