@@ -1,6 +1,5 @@
 from products.models import Producto
 from products.api.serializer.category_serializers import *
-from products.api.serializer.image_serializers import *
 
 from rest_framework import serializers
 
