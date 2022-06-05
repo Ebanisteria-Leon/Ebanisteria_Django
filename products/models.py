@@ -45,18 +45,6 @@ class Producto(BaseModel):
 
     def __str__(self):
         return self.nombre
-    
-    @property
-    def stock(self):
-        from django.db.models import Sum
-        from expense_manager.models import DetallesCompra
-        
-        expenses = DetallesCompra.objects.filter(
-            idProductos = self,
-            estadoCreacion = True
-        ).aggregate(Sum('cantidad'))
-        
-        return expenses
 
 #* Tabla de Promociones
 class Promocion(BaseModel):
