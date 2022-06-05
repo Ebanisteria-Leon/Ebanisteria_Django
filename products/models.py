@@ -17,11 +17,6 @@ class Categoria(BaseModel):
     def __str__(self):
         return self.nombreCategoria
 
-opciones_estados = [
-    [0, 'Nuevo'],
-    [1, 'Destacado'],
-]
-
 #* Tabla de productos
 class Producto(BaseModel):
     idProducto = models.AutoField(primary_key = True, verbose_name = 'Identificador del Producto')
@@ -41,7 +36,7 @@ class Producto(BaseModel):
     fechaInicio = models.DateField(verbose_name = 'Fecha de Inicio')
     fechaFinalizacion = models.DateField(verbose_name = 'Fecha de Finalizacion')
 
-    estadoProducto = models.IntegerField(verbose_name = 'Estado del Producto', choices = opciones_estados, default = 0)
+    estadoProducto = models.CharField(verbose_name = 'Estado del Producto', max_length = 20, default = '')
     idCategoria = models.ForeignKey(Categoria, on_delete = models.CASCADE,verbose_name = 'Indicador de Categoria')
 
     class Meta:

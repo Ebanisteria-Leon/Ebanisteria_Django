@@ -1,13 +1,21 @@
-from rest_framework import status, viewsets
+from rest_framework import status, viewsets, filters
 from rest_framework.response import Response
-from rest_framework.parsers import JSONParser, MultiPartParser
+from django_filters.rest_framework import DjangoFilterBackend
 
 from products.api.serializer.product_serializers import *
 
+# from base.utils import validate_files
+
 #* Create and List for productos API
 class ProductoViewSet(viewsets.ModelViewSet):
+
+    filter_backends = [DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter]
+    
+    filterset_fields = ['estadoProducto', 'fechaInicio', 'fechaFinalizacion', 'calificacion', 'idCategoria__nombreCategoria']
+    search_fields = ['estadoProducto', 'calificacion', 'idCategoria__nombreCategoria']
+    ordering_fields = ['idProducto__nombre']
+    
     serializer_class = ProductoSerializers
-    parser_classes = (JSONParser, MultiPartParser, )
 
     def get_queryset(self, pk = None):
         if pk is None:
@@ -17,14 +25,7 @@ class ProductoViewSet(viewsets.ModelViewSet):
 
     def list(self, request):
         producto_serializer = self.get_serializer(self.get_queryset(), many = True)
-        
-        data = {
-            'total': self.get_queryset().count(),
-            'totalNotFiltered': self.get_queryset().count(),
-            'rows': producto_serializer.data
-        }
-        
-        return Response(data, status = status.HTTP_200_OK)
+        return Response(producto_serializer.data, status = status.HTTP_200_OK)
 
     def create(self, request):
         serializer = self.serializer_class(data = request.data)
@@ -47,18 +48,18 @@ class ProductoViewSet(viewsets.ModelViewSet):
     def update(self, request, pk = None):
         if self.get_queryset(pk):
             producto_serializer = self.serializer_class(self.get_queryset(pk), data = request.data)
-
+            
             if producto_serializer.is_valid():
                 producto_serializer.save()
                 return Response({'message': 'Producto actualizado correctamente!'}, status = status.HTTP_200_OK)
-
+            
             return Response({'message': 'No se pudo actualizar los datos del Producto!!', 'error': producto_serializer.errors}, status = status.HTTP_400_BAD_REQUEST)
 
-    def destroy(self, request, pk=None):
+    def destroy(self, request, pk = None):
         producto = self.get_queryset().filter(idProducto = pk).first()  # get instance
         if producto:
             producto.estadoCreacion = False
             producto.save()
             return Response({'message': 'Producto eliminado correctamente!'}, status = status.HTTP_200_OK)
-
+        
         return Response({'error': 'No existe un Producto con estos datos!'}, status = status.HTTP_400_BAD_REQUEST)
