@@ -5,11 +5,9 @@ from rest_framework import status, viewsets, filters
 from rest_framework.response import Response
 from django_filters.rest_framework import DjangoFilterBackend
 
-
-
 #* Create and List of API Categoria
 class CategoriaViewSet(viewsets.ModelViewSet):
-    filter_backends = [DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter]
+    filter_backends = [DjangoFilterBackend, filters.SearchFilter]
     
     filterset_fields = ['nombreCategoria']
     search_fields = ['nombreCategoria']
@@ -22,10 +20,6 @@ class CategoriaViewSet(viewsets.ModelViewSet):
 
         return self.get_serializer().Meta.model.objects.filter(idCategoria = pk, estadoCreacion = True).first()
     
-    def list(self, request):
-        categoria_serializer = self.get_serializer(self.get_queryset(), many = True)
-        return Response (categoria_serializer.data, status = status.HTTP_200_OK)
-    
     def create(self, request):
         serializer = self.serializer_class(data = request.data)
         
@@ -34,15 +28,6 @@ class CategoriaViewSet(viewsets.ModelViewSet):
             return Response({'message': 'Categoria creada correctamente!'}, status = status.HTTP_201_CREATED)
         
         return Response(serializer.errors, status = status.HTTP_400_BAD_REQUEST)
-    
-    def retrieve(self, request, pk=None):
-        categoria = self.get_queryset(pk)
-
-        if categoria:
-            categoria_serializer = CategoriaSerializers(categoria)
-            return Response(categoria_serializer.data, status = status.HTTP_200_OK)
-
-        return Response({'error': 'No existe una Categoria con estos datos!'}, status = status.HTTP_400_BAD_REQUEST)
     
     def update(self, request, pk = None):
         if self.get_queryset(pk):

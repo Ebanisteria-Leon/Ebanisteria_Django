@@ -1,6 +1,4 @@
-from xml.etree.ElementInclude import default_loader
 from django.db import models
-from django.core.exceptions import ObjectDoesNotExist
 
 from base.models import BaseModel
 from users.models import User
@@ -21,7 +19,6 @@ class TipoPago(BaseModel):
     def __str__(self):
         return self.name
 
-
 class ComprobantePago(BaseModel):
     idComprobantePago = models.AutoField(primary_key = True, verbose_name = 'Identificador de Comprobante de Pago')
     nombre = models.CharField('Nombre de comprobante de Pago', max_length = 100)
@@ -34,12 +31,6 @@ class ComprobantePago(BaseModel):
     def __str__(self):
         return self.name
 
-
-opciones_compra = [
-    [0, 'Cancelado'],
-    [1, 'Finalizado'],
-]
-
 #* Tabla de detalles compra
 class DetallesCompra(BaseModel):
     idDetallesCompra = models.AutoField(primary_key = True, null = False, verbose_name = 'Indicador de Compra')
@@ -50,7 +41,7 @@ class DetallesCompra(BaseModel):
 
     fechaCompra = models.DateField(verbose_name = 'Fecha Compra', auto_now = False, auto_now_add = False)
 
-    estadoCompra = models.IntegerField(choices = opciones_compra, verbose_name = 'Estado de la Compra', default = 0)
+    estadoCompra = models.CharField(max_length = 30, verbose_name = 'Estado de la Compra', default = '')
     comprobante_number = models.CharField(max_length = 50, verbose_name = 'Numero de comprobante', default = '')
 
     idComprobante = models.ForeignKey(ComprobantePago, on_delete = models.CASCADE, verbose_name = 'Identificador de Comprobante de Pago')
@@ -64,18 +55,12 @@ class DetallesCompra(BaseModel):
     def __str__(self):
         return f'Detalles de la compra en la fecha : {self.fechaCompra}'
 
-opciones_pedidos = [
-    [0, 'Pendiente'],
-    [1, 'Cancelado'],
-    [2, 'Produccion'],
-]
-
 #* Tabla de pedidosPendientes
 class PedidosPendiente(BaseModel):
     idPedidosPendientes = models.AutoField(primary_key = True, verbose_name = 'Identificador de los Pedidos')
     fechaPedido = models.DateField(verbose_name = 'Fecha del Pedido')
-    estadoPedido = models.IntegerField(choices = opciones_pedidos, verbose_name = 'Estado del Pedido', default = 0)
-    
+    estadoPedido = models.CharField(max_length = 30, verbose_name = 'Estado del Pedido', default = '')
+
     idComprobante = models.ForeignKey(ComprobantePago, on_delete = models.CASCADE, verbose_name='Identificador de Comprobante de Pago')
     idTipoPago = models.ForeignKey(TipoPago, on_delete = models.CASCADE, verbose_name = 'Identificador de tipo de Pago')
     idProducto = models.ManyToManyField(Producto, verbose_name = 'Identificador del Producto')

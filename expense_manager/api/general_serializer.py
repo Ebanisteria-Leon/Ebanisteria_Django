@@ -19,7 +19,9 @@ class PedidosPendientesSerializers(serializers.ModelSerializer):
             'idProducto': [
                 instance.idProducto.idProducto,
                 instance.idProducto.nombre,
-                instance.idProducto.descripcion,
+                instance.idProducto.tiempoProducto,
+                instance.idProducto.estadoProducto,
+                instance.idProducto.destacado,
                 instance.idProducto.valor
             ],
 
@@ -29,7 +31,7 @@ class PedidosPendientesSerializers(serializers.ModelSerializer):
                 instance.idPersona.last_name,
                 instance.idPersona.email
             ],
-            
+
             'idComprobantePago': instance.nombre,
             'idTipoPago': instance.nombre
         }

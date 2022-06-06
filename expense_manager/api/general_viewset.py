@@ -1,11 +1,17 @@
 from expense_manager.models import *
 from expense_manager.api.general_serializer import *
 
-from rest_framework import viewsets, status
+from rest_framework import status, viewsets, filters
 from rest_framework.response import Response
+from django_filters.rest_framework import DjangoFilterBackend
 
 #* List of API DetallesCompra
 class DetalleCompraViewSet(viewsets.ModelViewSet):
+    filter_backends = [DjangoFilterBackend, filters.SearchFilter]
+
+    filterset_fields = ['idProductos__nombre', 'idPersona__username', 'idComprobante__nombre', 'cantidad', 'estadoCompra']
+    search_fields = ['idProductos__nombre', 'idPersona__username',' estadoCompra']
+    
     serializer_class = DetallesCompraSerializers
 
     def get_queryset(self, pk=None):
@@ -14,11 +20,6 @@ class DetalleCompraViewSet(viewsets.ModelViewSet):
 
         return self.get_serializer().Meta.model.objects.filter(idDetalleCompra=pk, estadoCreacion=True).first()
 
-    def list(self, request):
-        data = self.get_queryset()
-        data = self.get_serializer(data, many = True)
-        return Response(data.data)
-    
     def create(self, request):
         serializer = self.serializer_class(data=request.data)
 
@@ -50,6 +51,11 @@ class DetalleCompraViewSet(viewsets.ModelViewSet):
 
 #* List of API PedidosPendientes
 class PedidosPendientesViewSet(viewsets.ModelViewSet):
+    filter_backends = [DjangoFilterBackend, filters.SearchFilter]
+
+    filterset_fields = ['idProducto__nombre', 'idPersona__username', 'idComprobante__nombre', 'fechaPedido', 'estadoPedido']
+    search_fields = ['idProducto__nombre', 'idPersona__username',' estadoPedido']
+    
     serializer_class = PedidosPendientesSerializers
 
     def get_queryset(self, pk = None):
@@ -57,11 +63,6 @@ class PedidosPendientesViewSet(viewsets.ModelViewSet):
             return self.get_serializer().Meta.model.objects.filter(estadoCreacion = True)
         
         return self.get_serializer().Meta.model.objects.filter(idPedidoPendiente = pk, estadoCreacion = True).first()
-
-    def list(self, request):
-        data = self.get_queryset()
-        data = self.get_serializer(data, many = True)
-        return Response(data.data)
 
     def create(self, request):
         serializer = self.serializer_class(data = request.data)
@@ -93,6 +94,11 @@ class PedidosPendientesViewSet(viewsets.ModelViewSet):
 
 #* List of API Comprobante pago
 class ComprobantePagoViewSet(viewsets.ModelViewSet):
+    filter_backends = [DjangoFilterBackend, filters.SearchFilter]
+
+    filterset_fields = ['nombre']
+    search_fields = ['nombre']
+    
     serializer_class = ComprobantePagoSerializers
 
     def get_queryset(self, pk=None):
@@ -100,11 +106,6 @@ class ComprobantePagoViewSet(viewsets.ModelViewSet):
             return self.get_serializer().Meta.model.objects.filter(estadoCreacion=True)
 
         return self.get_serializer().Meta.model.objects.filter(idcomprobantePago=pk, estadoCreacion=True).first()
-
-    def list(self, request):
-        data = self.get_queryset()
-        data = self.get_serializer(data, many=True)
-        return Response(data.data)
 
     def create(self, request):
         serializer = self.serializer_class(data=request.data)
@@ -138,6 +139,11 @@ class ComprobantePagoViewSet(viewsets.ModelViewSet):
 
 #* List of API TipoPago
 class TipoPagoViewSet(viewsets.ModelViewSet):
+    filter_backends = [DjangoFilterBackend, filters.SearchFilter]
+
+    filterset_fields = ['nombre']
+    search_fields = ['nombre']
+    
     serializer_class = TipoPagoSerializers
 
     def get_queryset(self, pk=None):
@@ -145,11 +151,6 @@ class TipoPagoViewSet(viewsets.ModelViewSet):
             return self.get_serializer().Meta.model.objects.filter(estadoCreacion=True)
 
         return self.get_serializer().Meta.model.objects.filter(idTipoPago=pk, estadoCreacion=True).first()
-
-    def list(self, request):
-        data = self.get_queryset()
-        data = self.get_serializer(data, many=True)
-        return Response(data.data)
 
     def create(self, request):
         serializer = self.serializer_class(data=request.data)

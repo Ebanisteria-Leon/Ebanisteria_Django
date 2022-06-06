@@ -1,16 +1,24 @@
-from rest_framework import status, viewsets
+from rest_framework import status, viewsets, filters
 from rest_framework.response import Response
+from django_filters.rest_framework import DjangoFilterBackend
 
 from products.api.serializer.promo_serializers import PromocionSerializers
 
+#* Create and List for promocion API
 class PromocionViewSet(viewsets.ModelViewSet):
+    filter_backends = [DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter]
+    
+    filterset_fields = ['productoExtra', 'valorDescuento', 'idProducto__nombre']
+    search_fields = ['productoExtra', 'valorDescuento', 'idProducto__nombre']
+    ordering_fields = ['idPromocion__nombre']
+    
     serializer_class = PromocionSerializers
     
     def get_queryset(self, pk = None):
         if pk is None:
             return self.get_serializer().Meta.model.objects.filter(estadoCreacion = True)
-        else:
-            return self.get_serializer().Meta.model.objects.filter(estadoCreacion = True, idProducto = pk).first()
+
+        return self.get_serializer().Meta.model.objects.filter(idPromocion = pk, estadoCreacion = True).first()
     
     def list(self, request):
         promocion_serializer = self.get_serializer(self.get_queryset(), many = True)

@@ -39,7 +39,7 @@ class Producto(BaseModel):
     estadoProducto = models.CharField(verbose_name = 'Estado del Producto', max_length = 30, default = '')
     destacado = models.CharField(verbose_name = 'Tipo del Producto', max_length = 30, default = '')
     tiempoProducto = models.CharField(verbose_name = 'Tiempo del Producto', max_length = 30, default = '')
-    
+
     idCategoria = models.ForeignKey(Categoria, on_delete = models.CASCADE,verbose_name = 'Indicador de Categoria')
 
     class Meta:
@@ -53,8 +53,16 @@ class Producto(BaseModel):
 class Promocion(BaseModel):
     idPromociones = models.AutoField(primary_key = True, null = False, verbose_name = 'Identificador de Promociones')
     nombre = models.CharField(max_length = 30, verbose_name = 'Nombre de la Promocion')
+    
     valorDescuento = models.PositiveSmallIntegerField(default = 0, verbose_name = 'Valor del Descuento del Producto')
     productoExtra = models.PositiveSmallIntegerField(default = 0, verbose_name = 'Cantidad de Productos extra')
+    
+    fechaInicio = models.DateField(verbose_name = 'Fecha de Inicio', null = True)
+    fechaFinalizacion = models.DateField(verbose_name = 'Fecha de Finalizacion', null = True)
+    
+    estadoPromocion = models.CharField(max_length = 30, default = '', verbose_name = 'Estado de la Promocion')
+    tiempoPromocion = models.CharField(max_length = 30, default = '', verbose_name = 'Tiempo de la Promocion')
+    
     idProducto = models.ManyToManyField(Producto, verbose_name = 'Identificar del Producto')
 
     class Meta:
