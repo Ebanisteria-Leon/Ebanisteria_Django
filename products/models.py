@@ -36,7 +36,10 @@ class Producto(BaseModel):
     fechaInicio = models.DateField(verbose_name = 'Fecha de Inicio')
     fechaFinalizacion = models.DateField(verbose_name = 'Fecha de Finalizacion')
 
-    estadoProducto = models.CharField(verbose_name = 'Estado del Producto', max_length = 20, default = '')
+    estadoProducto = models.CharField(verbose_name = 'Estado del Producto', max_length = 30, default = '')
+    destacado = models.CharField(verbose_name = 'Tipo del Producto', max_length = 30, default = '')
+    tiempoProducto = models.CharField(verbose_name = 'Tiempo del Producto', max_length = 30, default = '')
+    
     idCategoria = models.ForeignKey(Categoria, on_delete = models.CASCADE,verbose_name = 'Indicador de Categoria')
 
     class Meta:

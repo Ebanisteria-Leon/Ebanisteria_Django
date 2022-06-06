@@ -38,7 +38,7 @@ class ProductoSerializers(serializers.ModelSerializer):
 
         return data
 
-    """def to_representation(self, instance):
+    def to_representation(self, instance):
         return {
             'idProducto': instance.idProducto,
             'nombre': instance.nombre,
@@ -50,14 +50,17 @@ class ProductoSerializers(serializers.ModelSerializer):
             'ancho': instance.ancho,
             'color': instance.color,
             'calificacion': instance.calificacion,
-            'imagen': instance.imagen.url if instance.imagen != '' else '',
+            'imagen': instance.imagen,
+            'imagen2': instance.imagen2,
             
             'fechaInicio': instance.fechaInicio,
             'fechaFinalizacion': instance.fechaFinalizacion,
             
             'estadoProducto': instance.estadoProducto,
-            'idCategoria': instance.idCategoria.nombreCategoria if instance.idCategoria is not None else ''
-        }"""
+            'destacado': instance.destacado,
+            'tiempoProducto': instance.tiempoProducto,
+            'idCategoria': instance.idCategoria.nombreCategoria
+        }
 
 class ProductoRetrieveSerializer(serializers.ModelSerializer):
 
