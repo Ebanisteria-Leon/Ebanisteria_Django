@@ -18,23 +18,11 @@ class ProductoSerializers(serializers.ModelSerializer):
 
         return value
 
-    """def validate_image(self, value):
-        if value == '' or value == None:
-            raise serializers.ValidationError(
-                'Debe ingresar una Imagen de Producto')
-
-        return value"""
-
     def validate(self, data):
         if 'idCategoria' not in data.keys():
             raise serializers.ValidationError({
                 'idCategoria': 'Debe ingresar una Categoria de Producto'
             })
-
-        """if 'idImagenes' not in data.keys():
-            raise serializers.ValidationError({
-                'idImagenes': 'Debe ingresar una Imagen de Producto'
-            })"""
 
         return data
 
