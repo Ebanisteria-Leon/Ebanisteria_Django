@@ -6,11 +6,10 @@ from users.models import User
 class CustomTokenObtainPairSerializers(TokenObtainPairSerializer):
     pass
 
-
 class CustomUserSerializers(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ('username', 'email', 'name', 'last_name')
+        fields = ('username', 'email', 'name', 'last_name', 'rolUser')
 
 class UserSerializers(serializers.ModelSerializer):
     class Meta:
@@ -27,7 +26,7 @@ class UpdateUserSerializers(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ('username', 'email', 'name', 'last_name')
+        fields = ('username', 'email', 'name', 'last_name', 'rolUser')
 
 class UserListSerializers(serializers.ModelSerializer):
     class Meta:
@@ -39,14 +38,14 @@ class UserListSerializers(serializers.ModelSerializer):
             'username': instance['username'],
             'email': instance['email'],
             'name': instance['name'],
-            'last_name': instance['last_name']
+            'last_name': instance['last_name'],
+            'image': instance['image'],
+            'rolUser': instance['rolUser']
         }
 
 class PasswordSerializers(serializers.Serializer):
-    password = serializers.CharField(
-        max_length=255, min_length=6, write_only=True)
-    password2 = serializers.CharField(
-        max_length=255, min_length=6, write_only=True)
+    password = serializers.CharField(max_length = 255, min_length = 6, write_only = True)
+    password2 = serializers.CharField(max_length = 255, min_length = 6, write_only = True)
 
     def validate(self, data):
         if data['password'] != data['password2']:

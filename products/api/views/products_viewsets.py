@@ -11,9 +11,9 @@ class ProductoViewSet(viewsets.ModelViewSet):
     filter_backends = [DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter]
     
     filterset_fields = ['nombre', 'estadoProducto', 'destacado', 'tiempoProducto', 'fechaInicio', 'fechaFinalizacion', 'calificacion', 'idCategoria__nombreCategoria']
-    
+
     search_fields = ['nombre', 'estadoProducto', 'destacado', 'tiempoProducto', 'calificacion', 'idCategoria__nombreCategoria']
-    
+
     ordering_fields = ['idProducto__calificacion', 'idProducto__valor', 'idProducto__idProducto']
     
 

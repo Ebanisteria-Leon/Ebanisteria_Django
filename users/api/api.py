@@ -26,7 +26,9 @@ class UserViewSet(viewsets.GenericViewSet):
                                     'username',
                                     'email',
                                     'name',
-                                    'last_name'
+                                    'last_name',
+                                    'image',
+                                    'rolUser'
                                 )
         
         return self.queryset
@@ -106,5 +108,5 @@ class UserViewSet(viewsets.GenericViewSet):
             }, status = status.HTTP_204_NO_CONTENT)
             
         return Response({
-                'message': 'no existe el usuario que desea eliminar!'
+                'message': 'No existe el usuario que desea eliminar!'
             }, status = status.HTTP_404_NOT_FOUND)
