@@ -33,7 +33,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     name = models.CharField(max_length = 255, blank = True, verbose_name = 'Nombres', null = True)
     last_name = models.CharField(max_length = 255, blank = True, verbose_name = 'Apellidos', null = True)
 
-    image = models.TextField(null = True, blank = True, verbose_name = 'Imagen de perfil', default = '')
+    image = models.TextField(null = True, blank = True, verbose_name = 'Imagen de perfil', default = 'https://res.cloudinary.com/ebanisteria/image/upload/v1655070601/64572_q5quxt.png')
 
     rolUser = models.CharField(max_length = 30, blank = False, null = False, default = 'Cliente', verbose_name = 'Rol de usuarios')
 
