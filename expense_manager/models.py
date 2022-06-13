@@ -17,7 +17,7 @@ class TipoPago(BaseModel):
         verbose_name_plural = 'Medio de Pagos'
 
     def __str__(self):
-        return self.name
+        return self.nombre
 
 class ComprobantePago(BaseModel):
     idComprobantePago = models.AutoField(primary_key = True, verbose_name = 'Identificador de Comprobante de Pago')
@@ -29,7 +29,7 @@ class ComprobantePago(BaseModel):
         verbose_name_plural = 'Comprobantes'
 
     def __str__(self):
-        return self.name
+        return self.nombre
 
 #* Tabla de detalles compra
 class DetallesCompra(BaseModel):
