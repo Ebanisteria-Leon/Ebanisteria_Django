@@ -32,8 +32,8 @@ class PedidosPendientesSerializers(serializers.ModelSerializer):
                 instance.idPersona.email
             ],
 
-            'idComprobantePago': instance.nombre,
-            'idTipoPago': instance.nombre
+            'idComprobantePago': instance.idComprobantePago.nombre,
+            'idTipoPago': instance.idTipoPago.nombre
         }
 
 
@@ -55,10 +55,11 @@ class DetallesCompraSerializers(serializers.ModelSerializer):
             'comprobante_number': instance.comprobante_number,
             'estadoCompra': instance.estadoCompra,
             
-            'idComprobantePago': instance.nombre,
-            'idTipoPago': instance.nombre,
+            'idComprobantePago': instance.idComprobantePago.nombre,
+            'idTipoPago': instance.idTipoPago.nombre,
 
             'idProducto': [
+                instance.idProducto.idProducto,
                 instance.idProducto.nombre,
                 instance.idProducto.descripcion,
                 instance.idProducto.valor
