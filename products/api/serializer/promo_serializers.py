@@ -1,4 +1,4 @@
-from api.serializer.product_serializers import ProductoSerializers
+from products.api.serializer.product_serializers import ProductoSerializers
 from products.models import Promocion
 
 from rest_framework import serializers
