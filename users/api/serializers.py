@@ -9,7 +9,7 @@ class CustomTokenObtainPairSerializers(TokenObtainPairSerializer):
 class CustomUserSerializers(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ('username', 'email', 'name', 'last_name', 'rolUser', 'image')
+        fields = ('id', 'username', 'email', 'name', 'last_name', 'rolUser', 'image')
 
 class UserSerializers(serializers.ModelSerializer):
     class Meta:
@@ -26,7 +26,7 @@ class UpdateUserSerializers(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ('username', 'email', 'name', 'last_name', 'rolUser', 'image')
+        fields = ('id', 'username', 'email', 'name', 'last_name', 'rolUser', 'image')
 
 class UserListSerializers(serializers.ModelSerializer):
     class Meta:

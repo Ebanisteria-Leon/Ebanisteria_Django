@@ -29,7 +29,8 @@ class PedidosPendientesSerializers(serializers.ModelSerializer):
                 instance.idPersona.id,
                 instance.idPersona.name,
                 instance.idPersona.last_name,
-                instance.idPersona.email
+                instance.idPersona.email,
+                instance.idPersona.direccion
             ],
 
             'idComprobantePago': [
@@ -41,7 +42,6 @@ class PedidosPendientesSerializers(serializers.ModelSerializer):
                 instance.idTipoPago.nombre
             ]
         }
-
 
 class DetallesCompraSerializers(serializers.ModelSerializer):
     class Meta:
@@ -78,6 +78,7 @@ class DetallesCompraSerializers(serializers.ModelSerializer):
             ],
 
             'idPersona': [
+                instance.idEpersona.id,
                 instance.idPersona.name,
                 instance.idPersona.last_name,
                 instance.idPersona.email,
