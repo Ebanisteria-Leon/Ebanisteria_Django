@@ -10,10 +10,10 @@ class PedidosAdmin(admin.ModelAdmin):
     list_display = ('idPedidosPendientes', 'idPersona', 'fechaPedido')
 
 class ComprobanteAdmin(admin.ModelAdmin):
-    list_display = ('idPedidosPendientes', 'idPersona', 'fechaPedido')
+    list_display = ('idComprobantePago', 'nombre')
 
 class TipoPagoAdmin(admin.ModelAdmin):
-    list_display = ('idPedidosPendientes', 'idPersona', 'fechaPedido')
+    list_display = ('idTipoPago', 'nombre')
 
 admin.site.register(DetallesCompra, DetallesAdmin)
 admin.site.register(PedidosPendiente, PedidosAdmin)
