@@ -9,7 +9,7 @@ class PromocionSerializers(serializers.ModelSerializer):
     
     def to_representation(self, instance):
         return {
-            'idPromocion': instance.idPromocion,
+            'idPromociones': instance.idPromociones,
             'nombre': instance.nombre,
             
             'valorDescuento': instance.valorDescuento,
