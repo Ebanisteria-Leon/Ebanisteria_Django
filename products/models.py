@@ -63,7 +63,7 @@ class Promocion(BaseModel):
     estadoPromocion = models.CharField(max_length = 30, default = '', verbose_name = 'Estado de la Promocion')
     tiempoPromocion = models.CharField(max_length = 30, default = '', verbose_name = 'Tiempo de la Promocion')
     
-    idProducto = models.ManyToManyField(Producto, verbose_name = 'Identificar del Producto')
+    idProducto = models.ForeignKey(Producto, default = '', on_delete=models.CASCADE, verbose_name='Identificar del Producto')
 
     class Meta:
         verbose_name = 'Promocion de Producto'
