@@ -7,12 +7,12 @@ from django_filters.rest_framework import DjangoFilterBackend
 
 #* List of API Comprobante pago
 class ComprobantePagoViewSet(viewsets.ModelViewSet):
+    serializer_class = ComprobantePagoSerializers
     filter_backends = [DjangoFilterBackend, filters.SearchFilter]
 
     filterset_fields = ['nombre']
     search_fields = ['nombre']
     
-    serializer_class = ComprobantePagoSerializers
 
     def get_queryset(self, pk=None):
         if pk is None:
@@ -52,12 +52,12 @@ class ComprobantePagoViewSet(viewsets.ModelViewSet):
 
 #* List of API TipoPago
 class TipoPagoViewSet(viewsets.ModelViewSet):
+    serializer_class = TipoPagoSerializers
     filter_backends = [DjangoFilterBackend, filters.SearchFilter]
 
     filterset_fields = ['nombre']
     search_fields = ['nombre']
     
-    serializer_class = TipoPagoSerializers
 
     def get_queryset(self, pk=None):
         if pk is None:

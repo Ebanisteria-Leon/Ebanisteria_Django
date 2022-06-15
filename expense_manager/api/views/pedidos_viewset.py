@@ -5,15 +5,15 @@ from rest_framework import status, viewsets, filters
 from rest_framework.response import Response
 from django_filters.rest_framework import DjangoFilterBackend
 
-
 #* List of API PedidosPendientes
 class PedidosPendientesViewSet(viewsets.ModelViewSet):
+    serializer_class = ListPedidosPendientesSerializers
+    
     filter_backends = [DjangoFilterBackend, filters.SearchFilter]
 
     filterset_fields = ['idProducto__nombre', 'idPersona__username', 'idProducto__idProducto', 'idComprobante__nombre', 'fechaPedido', 'estadoPedido']
     search_fields = ['idProducto__nombre', 'idPersona__username', ' estadoPedido']
 
-    serializer_class = ListPedidosPendientesSerializers
 
     def get_queryset(self, pk=None):
         if pk is None:
