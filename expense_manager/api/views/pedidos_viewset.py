@@ -11,7 +11,7 @@ class PedidosPendientesViewSet(viewsets.ModelViewSet):
     
     filter_backends = [DjangoFilterBackend, filters.SearchFilter]
 
-    filterset_fields = ['idProducto__nombre', 'idPersona__username', 'idProducto__idProducto', 'idComprobante__nombre', 'fechaPedido', 'estadoPedido']
+    filterset_fields = ['idProducto__nombre', 'idPersona__username', 'idProducto__idProducto', 'idPersona__id', 'idComprobante__nombre', 'fechaPedido', 'estadoPedido']
     search_fields = ['idProducto__nombre', 'idPersona__username', ' estadoPedido']
 
 
