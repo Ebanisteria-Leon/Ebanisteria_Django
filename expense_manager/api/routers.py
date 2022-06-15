@@ -1,5 +1,7 @@
 from rest_framework.routers import DefaultRouter
-from expense_manager.api.general_viewset import *
+from expense_manager.api.views.general_viewset import *
+from expense_manager.api.views.pedidos_viewset import *
+from expense_manager.api.views.detalle_viewset import *
 
 router = DefaultRouter()
 
