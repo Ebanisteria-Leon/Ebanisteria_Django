@@ -64,7 +64,7 @@ class PedidosPendiente(BaseModel):
     idComprobante = models.ForeignKey(ComprobantePago, on_delete = models.CASCADE, verbose_name='Identificador de Comprobante de Pago')
     idTipoPago = models.ForeignKey(TipoPago, on_delete = models.CASCADE, verbose_name = 'Identificador de tipo de Pago')
     idProducto = models.ManyToManyField(Producto, verbose_name = 'Identificador del Producto')
-    idPersona = models.ForeignKey(User, on_delete = models.CASCADE, verbose_name = 'Identificador de la Persona')
+    idPersona = models.ManyToManyField(User, verbose_name = 'Identificador de la Persona')
 
     class Meta:
         verbose_name = 'Pedido pendiente'
