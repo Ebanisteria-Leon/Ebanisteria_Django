@@ -7,7 +7,7 @@ class DetallesAdmin(admin.ModelAdmin):
     list_display = ('idDetallesCompra', 'idPersona', 'fechaCompra')
 
 class PedidosAdmin(admin.ModelAdmin):
-    list_display = ('idPedidosPendientes', 'idPersona', 'fechaPedido')
+    list_display = ('idPedidosPendientes' 'fechaPedido')
 
 class ComprobanteAdmin(admin.ModelAdmin):
     list_display = ('idComprobantePago', 'nombre')
