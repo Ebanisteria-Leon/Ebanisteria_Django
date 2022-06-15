@@ -34,13 +34,13 @@ class UserListSerializers(serializers.ModelSerializer):
 
     def to_representation(self, instance):
         return {
-            'id': instance['id'],
-            'username': instance['username'],
-            'email': instance['email'],
-            'name': instance['name'],
-            'last_name': instance['last_name'],
-            'image': instance['image'],
-            'rolUser': instance['rolUser']
+            'id': instance.id,
+            'username': instance.username,
+            'email': instance.email,
+            'name': instance.name,
+            'last_name': instance.last_name,
+            'image': instance.image,
+            'rolUser': instance.rolUser
         }
 
 class PasswordSerializers(serializers.Serializer):
