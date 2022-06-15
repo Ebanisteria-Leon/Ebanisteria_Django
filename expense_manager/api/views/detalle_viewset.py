@@ -9,7 +9,7 @@ from django_filters.rest_framework import DjangoFilterBackend
 class DetalleCompraViewSet(viewsets.ModelViewSet):
     filter_backends = [DjangoFilterBackend, filters.SearchFilter]
 
-    filterset_fields = ['idProductos__nombre', 'idPersona__username', 'idComprobante__nombre', 'cantidad', 'estadoCompra']
+    filterset_fields = ['idProductos__nombre', 'idPersona__username', 'idproducto__idProducto', 'idComprobante__nombre', 'cantidad', 'estadoCompra']
     search_fields = ['idProductos__nombre', 'idPersona__username',' estadoCompra']
     
     serializer_class = ListDetallesCompraSerializers

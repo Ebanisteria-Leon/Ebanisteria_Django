@@ -3,8 +3,8 @@ from products.api.serializer.product_serializers import ProductoSerializers
 
 from rest_framework import serializers
 
-
 class ListPedidosPendientesSerializers(serializers.ModelSerializer):
+    idProductos = ProductoSerializers(many=True, read_only=False)
 
     class Meta:
         model = PedidosPendiente

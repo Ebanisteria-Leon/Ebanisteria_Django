@@ -10,7 +10,7 @@ from django_filters.rest_framework import DjangoFilterBackend
 class PedidosPendientesViewSet(viewsets.ModelViewSet):
     filter_backends = [DjangoFilterBackend, filters.SearchFilter]
 
-    filterset_fields = ['idProducto__nombre', 'idPersona__username', 'idComprobante__nombre', 'fechaPedido', 'estadoPedido']
+    filterset_fields = ['idProducto__nombre', 'idPersona__username', 'idProducto__idProducto', 'idComprobante__nombre', 'fechaPedido', 'estadoPedido']
     search_fields = ['idProducto__nombre', 'idPersona__username', ' estadoPedido']
 
     serializer_class = ListPedidosPendientesSerializers
