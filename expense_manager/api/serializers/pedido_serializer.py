@@ -4,7 +4,6 @@ from users.api.serializers import UserListSerializers
 
 from rest_framework import serializers
 
-
 class ListPedidosPendientesSerializers(serializers.ModelSerializer):
     idProducto = ProductoSerializers(many = True, read_only = False)
     idPersona = UserListSerializers(many = True, read_only = False)
