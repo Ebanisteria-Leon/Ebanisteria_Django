@@ -31,17 +31,7 @@ class UpdateUserSerializers(serializers.ModelSerializer):
 class UserListSerializers(serializers.ModelSerializer):
     class Meta:
         model = User
-
-    def to_representation(self, instance):
-        return {
-            'id': instance.id,
-            'username': instance.username,
-            'email': instance.email,
-            'name': instance.name,
-            'last_name': instance.last_name,
-            'image': instance.image,
-            'rolUser': instance.rolUser
-        }
+        fields = ('id', 'username', 'email', 'name', 'last_name', 'rolUser', 'image')
 
 class PasswordSerializers(serializers.Serializer):
     password = serializers.CharField(max_length = 255, min_length = 6, write_only = True)
