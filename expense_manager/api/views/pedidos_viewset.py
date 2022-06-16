@@ -5,13 +5,14 @@ from rest_framework import status, viewsets, filters
 from rest_framework.response import Response
 from django_filters.rest_framework import DjangoFilterBackend
 
+
 #* List of API PedidosPendientes
 class PedidosPendientesViewSet(viewsets.ModelViewSet):
-    serializer_class = ListPedidosPendientesSerializers
     
+    serializer_class = ListPedidosPendientesSerializers
     filter_backends = [DjangoFilterBackend, filters.SearchFilter]
 
-    filterset_fields = ['idProducto__nombre', 'idPersona__username', 'idProducto__idProducto', 'idPersona__id', 'idComprobante__nombre', 'fechaPedido', 'estadoPedido']
+    filterset_fields = ['idProducto__nombre', 'idPersona__username', 'idProducto__idProducto', 'idComprobante__nombre', 'fechaPedido', 'estadoPedido']
     search_fields = ['idProducto__nombre', 'idPersona__username', ' estadoPedido']
 
 
@@ -19,7 +20,7 @@ class PedidosPendientesViewSet(viewsets.ModelViewSet):
         if pk is None:
             return self.get_serializer().Meta.model.objects.filter(estadoCreacion=True)
 
-        return self.get_serializer().Meta.model.objects.filter(idPedidoPendiente=pk, estadoCreacion=True).first()
+        return self.get_serializer().Meta.model.objects.filter(idPedidosPendientes=pk, estadoCreacion=True).first()
 
     def create(self, request):
         serializer = PedidosPendientesSerializers(data=request.data)
@@ -32,21 +33,20 @@ class PedidosPendientesViewSet(viewsets.ModelViewSet):
 
     def update(self, request, pk=None):
         if self.get_queryset(pk):
-            pedidopendiente_serializer = PedidosPendientesSerializers(
-                self.get_queryset(pk), data=request.data)
+            pedidoPendiente_serializer = PedidosPendientesSerializers(self.get_queryset (pk), data=request.data)
 
-            if pedidopendiente_serializer.is_valid():
-                pedidopendiente_serializer.save()
-                return Response({'message': 'PedidoPendiente actualizado correctamente!'}, status=status.HTTP_200_OK)
+            if pedidoPendiente_serializer.is_valid():
+                pedidoPendiente_serializer.save()
+                return Response({'message': 'Pedido Pendiente actualizado correctamente!'}, status=status.HTTP_200_OK)
 
-            return Response({'message': 'No se pudo actualizar los datos del PedidoPendiente!!', 'error': pedidopendiente_serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({'message': 'No se pudo actualizar los datos del Pedido Pendiente!!', 'error': pedidoPendiente_serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
 
     def destroy(self, request, pk=None):
         pedidopendiente = self.get_queryset().filter(
-            idPedidoPendiente=pk).first()  # get instance
+            idPedidosPendientes=pk).first()  # get instance
         if pedidopendiente:
             pedidopendiente.estadoCreacion = False
             pedidopendiente.save()
-            return Response({'message': 'PedidoPendiente eliminado correctamente!'}, status=status.HTTP_200_OK)
+            return Response({'message': 'Pedido Pendiente eliminado correctamente!'}, status=status.HTTP_200_OK)
 
-        return Response({'error': 'No existe un PedidoPendiente con estos datos!'}, status=status.HTTP_400_BAD_REQUEST)
+        return Response({'error': 'No existe un Pedido Pendiente con estos datos!'}, status=status.HTTP_400_BAD_REQUEST)
