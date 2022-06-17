@@ -73,7 +73,7 @@ _herramientas para _
 _Colaboradores del proyecto_
 
 * **Gojan Holguin Rincon** - *Trabajo del BackEnd* - [Gohan-117holguin](https://github.com/Gohan-117holguin)
-* **Marlon Andres Campo** - Trabajo del FrontEnd* - [ItzMarlon2](https://github.com/ItzMarlon2)
+* **Marlon Andres Campo** - *Trabajo del FrontEnd* - [ItzMarlon2](https://github.com/ItzMarlon2)
 * **Alexander Correa Diaz** - *Documentación* - [dicoaa](https://github.com/dicoaa)
 * **Micheal Valencia Tapiero** - *Tester* - [valencia07](https://github.com/valencia07)
 
