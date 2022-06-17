@@ -75,13 +75,15 @@ MIDDLEWARE = [
 CORS_ALLOWED_ORIGIN = [
     'http://localhost:3000',
     'http://127.0.0.1:3000',
-    'https://ebanisteria-leon.herokuapp.com/'
+    'https://ebanisteria-leon.herokuapp.com/',
+    'https://ebanisteria-leon.netlify.app/'
 ]
 
 CORS_ORIGIN_WHITELIST = [
     'http://localhost:3000',
     'http://127.0.0.1:3000',
-    'https://ebanisteria-leon.herokuapp.com/'
+    'https://ebanisteria-leon.herokuapp.com/',
+    'https://ebanisteria-leon.netlify.app/'
 ]
 
 ROOT_URLCONF = 'ebanisteria_django.urls'
