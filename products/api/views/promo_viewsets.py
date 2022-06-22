@@ -5,7 +5,7 @@ from rest_framework.response import Response
 from django_filters.rest_framework import DjangoFilterBackend
 from apscheduler.schedulers.background import BackgroundScheduler
 
-from products.api.serializer.promo_serializers import PromocionSerializers
+from products.api.serializer.promo_serializers import *
 
 scheduler = BackgroundScheduler()
 
