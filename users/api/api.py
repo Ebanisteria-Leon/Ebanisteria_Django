@@ -28,7 +28,8 @@ class UserViewSet(viewsets.GenericViewSet):
                                     'name',
                                     'last_name',
                                     'image',
-                                    'rolUser'
+                                    'rolUser',
+                                    'codigoVerificacion'
                                 )
         
         return self.queryset
