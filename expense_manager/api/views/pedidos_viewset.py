@@ -14,7 +14,7 @@ class PedidosPendientesViewSet(viewsets.ModelViewSet):
 
     filterset_fields = ['idProducto__nombre', 'idPersona__username', 'idProducto__idProducto', 'idComprobante__nombre', 'fechaPedido', 'estadoPedido']
     search_fields = ['idProducto__nombre', 'idPersona__username', ' estadoPedido']
-    ordering_fields = ['idPedidosPendientes', 'idPersona', 'idProducto']
+    ordering_fields = ['idPedidosPendientes', 'idPersona__id', 'idProducto__idProducto']
 
 
     def get_queryset(self, pk=None):
