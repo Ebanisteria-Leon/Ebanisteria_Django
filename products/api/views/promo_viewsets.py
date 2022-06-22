@@ -1,8 +1,13 @@
+from datetime import date
+from products.models import Producto, Promocion
 from rest_framework import status, viewsets, filters
 from rest_framework.response import Response
 from django_filters.rest_framework import DjangoFilterBackend
+from apscheduler.schedulers.background import BackgroundScheduler
 
 from products.api.serializer.promo_serializers import PromocionSerializers
+
+scheduler = BackgroundScheduler()
 
 #* Create and List for promocion API
 class PromocionViewSet(viewsets.ModelViewSet):
@@ -36,9 +41,32 @@ class PromocionViewSet(viewsets.ModelViewSet):
     def update(self, request, pk = None):
         if self.get_queryset(pk):
             promocion_serializer = self.serializer_class(self.get_queryset(pk), data = request.data)
+            # productos = request.data.get('productos')
+            
             if promocion_serializer.is_valid():
-                promocion_serializer.save()
-                return Response(promocion_serializer.data, status = status.HTTP_200_OK)
+                # estadoPromo= request.data.get('estadoPromocion')
+                
+                """if estadoPromo == 'AC':
+                    promocion_serializer.save()
+                    return Response({'data': promocion_serializer.data, 'message': 'Promocion actualizada correctamente'}, status = status.HTTP_200_OK)
+                
+                elif estadoPromo == 'IC':
+                    #* Creacion de la Promocion
+                    error_producto = {}
+                    productos_promocion = {}
+                    
+                    #* Creacion detalles promocion
+                    producto = Producto.objects.filter(idProducto = request.data.get('idPromocion')).first()
+                    promocion = Promocion(idPromocion = producto, fechaInico = date.today(), estadoPromo = 'AC')
+                    
+                    #* Creacion de Promociones
+                    for idProducto in productos:
+                        if producto.estadoProducto == 'NP':
+                            producto.estadoProducto == 'PRO'
+                            productos_promocion['Promocion ' + str(idProducto)] = producto
+                        
+                        else:
+                            error_producto['producto ' + str(idProducto)] = 'No se encuentra en promocion'"""
             
             return Response(promocion_serializer.errors, status = status.HTTP_400_BAD_REQUEST)
     
@@ -51,3 +79,20 @@ class PromocionViewSet(viewsets.ModelViewSet):
             return Response({'message': 'Promocion eliminada correctamente'}, status = status.HTTP_200_OK)
         
         return Response({'error': 'No existe una Promocion con estos datos'}, status = status.HTTP_400_BAD_REQUEST)
+
+    @scheduler.scheduled_job('interval', seconds=60)
+    def validacion_destacado_fecha_promocion():
+        promocion_detalle = Promocion.objects.filter()
+        for de_promocion in promocion_detalle:
+            
+            if de_promocion.fechaFinalizacion == None:
+                pass
+
+            else:
+                if de_promocion.fecha_limite_promocion == True and de_promocion.tiempoPromocion:
+                    de_promocion.tiempoPromocion = 'NP'
+                    de_promocion.save()
+                else:
+                    pass
+
+    scheduler.start()

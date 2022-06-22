@@ -1,30 +1,15 @@
-from products.models import Promocion
+from products.api.serializer.product_serializers import ProductoSerializers
+from products.models import Producto, Promocion
 
 from rest_framework import serializers
 
 class PromocionSerializers(serializers.ModelSerializer):
+    
     class Meta:
         model = Promocion
         exclude = ('estadoCreacion', 'fechaCreacion', 'fechaModificacion', 'fechaEliminacion')
-    
-    def to_representation(self, instance):
-        return {
-            'idPromociones': instance.idPromociones,
-            'nombre': instance.nombre,
+
+    def to_representation(self, instace):
+        return [
             
-            'valorDescuento': instance.valorDescuento,
-            'productoExtra': instance.productoExtra,
-            
-            'fechaInicio': instance.fechaInicio,
-            'fechaFinalizacion': instance.fechaFinalizacion,
-            
-            'estadoPromocion': instance.estadoPromocion,
-            'tiempoPromocion': instance.tiempoPromocion,
-            
-            'idProducto': [
-                instance.idProducto.nombre,
-                instance.idProducto.descripcion,
-                instance.idProducto.valor,
-                instance.idProducto.imagen,
-            ]
-        }
+        ]
