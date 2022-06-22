@@ -38,7 +38,7 @@ class Producto(BaseModel):
     fechaFinalizacion = models.DateField(verbose_name = 'Fecha de Finalizacion')
 
     estadoProducto = models.CharField(verbose_name = 'Estado del Producto', max_length = 30, default = 'D')
-    estadoProducto = models.BooleanField(verbose_name = 'Estado de la Promocion', default = False)
+    estadoPromocion = models.BooleanField(verbose_name = 'Estado de la Promocion', default = False)
     
     destacado = models.CharField(verbose_name = 'Tipo del Producto', max_length = 30, default = 'DE')
     tiempoProducto = models.CharField(verbose_name = 'Tiempo del Producto', max_length = 30, default = 'NUE')
