@@ -1,3 +1,4 @@
+from datetime import date
 from django.db import models
 from users.models import *
 from base.models import *
@@ -36,9 +37,11 @@ class Producto(BaseModel):
     fechaInicio = models.DateField(verbose_name = 'Fecha de Inicio')
     fechaFinalizacion = models.DateField(verbose_name = 'Fecha de Finalizacion')
 
-    estadoProducto = models.CharField(verbose_name = 'Estado del Producto', max_length = 30, default = '')
-    destacado = models.CharField(verbose_name = 'Tipo del Producto', max_length = 30, default = '')
-    tiempoProducto = models.CharField(verbose_name = 'Tiempo del Producto', max_length = 30, default = '')
+    estadoProducto = models.CharField(verbose_name = 'Estado del Producto', max_length = 30, default = 'D')
+    estadoProducto = models.BooleanField(verbose_name = 'Estado de la Promocion', default = False)
+    
+    destacado = models.CharField(verbose_name = 'Tipo del Producto', max_length = 30, default = 'DE')
+    tiempoProducto = models.CharField(verbose_name = 'Tiempo del Producto', max_length = 30, default = 'NUE')
 
     idCategoria = models.ForeignKey(Categoria, on_delete = models.CASCADE,verbose_name = 'Indicador de Categoria')
 
@@ -48,11 +51,19 @@ class Producto(BaseModel):
 
     def __str__(self):
         return self.nombre
+    
+    @property
+    def fecha_limite_producto(self):
+        fechaInicio = date.today()
+
+        if self.fechaFinalizacion > fechaInicio:
+            return True
+        elif fechaInicio > self.fechaFinalizacion:
+            return False
 
 #* Tabla de Promociones
 class Promocion(BaseModel):
     idPromociones = models.AutoField(primary_key = True, null = False, verbose_name = 'Identificador de Promociones')
-    nombre = models.CharField(max_length = 30, verbose_name = 'Nombre de la Promocion')
     
     valorDescuento = models.PositiveSmallIntegerField(default = 0, verbose_name = 'Valor del Descuento del Producto')
     productoExtra = models.PositiveSmallIntegerField(default = 0, verbose_name = 'Cantidad de Productos extra')
@@ -60,10 +71,10 @@ class Promocion(BaseModel):
     fechaInicio = models.DateField(verbose_name = 'Fecha de Inicio', null = True)
     fechaFinalizacion = models.DateField(verbose_name = 'Fecha de Finalizacion', null = True)
     
-    estadoPromocion = models.CharField(max_length = 30, default = '', verbose_name = 'Estado de la Promocion')
-    tiempoPromocion = models.CharField(max_length = 30, default = '', verbose_name = 'Tiempo de la Promocion')
+    estadoPromocion = models.CharField(max_length = 30, default = 'ACT', verbose_name = 'Estado de la Promocion')
+    tiempoPromocion = models.CharField(max_length = 30, default = 'NUE', verbose_name = 'Tiempo de la Promocion')
     
-    idProducto = models.ForeignKey(Producto, default = '', on_delete=models.CASCADE, verbose_name='Identificar del Producto')
+    idProducto = models.ManyToManyField(Producto, default = '', verbose_name = 'Identificar del Producto')
 
     class Meta:
         verbose_name = 'Promocion de Producto'
@@ -71,3 +82,12 @@ class Promocion(BaseModel):
 
     def __str__(self):
         return f'Oferta del producto : {self.nombre}'
+    
+    @property
+    def fecha_limite_promocion(self):
+        fechaInicio = date.today()
+
+        if self.fechaFinalizacion > fechaInicio:
+            return True
+        elif fechaInicio > self.fechaFinalizacion:
+            return False

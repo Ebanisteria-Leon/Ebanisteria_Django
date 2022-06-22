@@ -9,7 +9,7 @@ class ProductoAdmin(admin.ModelAdmin):
     list_display = ('idProducto', 'nombre')
 
 class PromocionAdmin(admin.ModelAdmin):
-    list_display = ('idPromociones', 'nombre')
+    list_display = ('idPromociones',)
 
 # Register your models here.
 admin.site.register(Categoria, CategoriaAdmin)

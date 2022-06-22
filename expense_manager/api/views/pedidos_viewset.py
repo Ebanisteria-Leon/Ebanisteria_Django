@@ -8,12 +8,13 @@ from django_filters.rest_framework import DjangoFilterBackend
 
 #* List of API PedidosPendientes
 class PedidosPendientesViewSet(viewsets.ModelViewSet):
-    
     serializer_class = ListPedidosPendientesSerializers
-    filter_backends = [DjangoFilterBackend, filters.SearchFilter]
+    
+    filter_backends = [DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter]
 
     filterset_fields = ['idProducto__nombre', 'idPersona__username', 'idProducto__idProducto', 'idComprobante__nombre', 'fechaPedido', 'estadoPedido']
     search_fields = ['idProducto__nombre', 'idPersona__username', ' estadoPedido']
+    ordering_fields = ['idPedidosPendientes', 'idPersona', 'idProducto']
 
 
     def get_queryset(self, pk=None):
@@ -33,7 +34,7 @@ class PedidosPendientesViewSet(viewsets.ModelViewSet):
 
     def update(self, request, pk=None):
         if self.get_queryset(pk):
-            pedidoPendiente_serializer = PedidosPendientesSerializers(self.get_queryset (pk), data=request.data)
+            pedidoPendiente_serializer = PedidosPendientesSerializers(self.get_queryset(pk), data=request.data)
 
             if pedidoPendiente_serializer.is_valid():
                 pedidoPendiente_serializer.save()

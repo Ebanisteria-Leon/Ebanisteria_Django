@@ -18,7 +18,7 @@ class ProductoViewSet(viewsets.ModelViewSet):
 
     search_fields = ['nombre', 'estadoProducto', 'destacado', 'tiempoProducto', 'calificacion', 'idCategoria__nombreCategoria']
 
-    ordering_fields = ['idProducto__calificacion', 'idProducto__valor', 'idProducto__idProducto']
+    ordering_fields = ['calificacion', 'valor', 'idProducto']
 
     def get_queryset(self, pk=None):
         if pk is None:
@@ -65,7 +65,7 @@ class ProductoViewSet(viewsets.ModelViewSet):
 
             else:
                 if de_producto.fecha_limite_producto == True and de_producto.tiempoProducto:
-                    de_producto.tiempoProducto = 'VIE'
+                    de_producto.tiempoProducto = 'ANT'
                     de_producto.save()
                 else:
                     pass
