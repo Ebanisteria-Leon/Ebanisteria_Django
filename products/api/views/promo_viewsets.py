@@ -18,7 +18,7 @@ class PromocionViewSet(viewsets.ModelViewSet):
     filterset_fields = ['productoExtra',
                         'valorDescuento', 'idProducto__nombre']
     search_fields = ['productoExtra', 'valorDescuento', 'idProducto__nombre']
-    ordering_fields = ['idPromociones__nombre']
+    ordering_fields = ['idPromociones', 'valorDescuento']
     
     def get_queryset(self, pk = None):
         if pk is None:
