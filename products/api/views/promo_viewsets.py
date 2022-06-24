@@ -40,6 +40,7 @@ class PromocionViewSet(viewsets.ModelViewSet):
             promocion_serializer = PromocionSerializers(self.get_queryset(pk), data = request.data)
             
             if promocion_serializer.is_valid():
+                promocion_serializer.save()
                 return Response({'data': promocion_serializer.data, 'message': 'Promocion actualizada correctamente'}, status = status.HTTP_200_OK)
             
             return Response(promocion_serializer.errors, status = status.HTTP_400_BAD_REQUEST)
@@ -48,7 +49,7 @@ class PromocionViewSet(viewsets.ModelViewSet):
         promocion = self.get_queryset().filter(idPromociones = pk).first()
         
         if promocion:
-            promocion.state = False
+            promocion.estadoCreacion = False
             promocion.save()
             return Response({'message': 'Promocion eliminada correctamente'}, status = status.HTTP_200_OK)
         

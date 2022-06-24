@@ -3,7 +3,6 @@ from products.models import Promocion
 
 from rest_framework import serializers
 
-
 class ListPromocionSerializers(serializers.ModelSerializer):
     idProducto = ProductoSerializers(many = True, read_only = False)
 
