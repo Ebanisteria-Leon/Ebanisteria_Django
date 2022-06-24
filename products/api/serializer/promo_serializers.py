@@ -15,4 +15,4 @@ class PromocionSerializers(serializers.ModelSerializer):
     
     class Meta:
         model = Promocion
-        exclude = '__all__'
+        fields = '__all__'
