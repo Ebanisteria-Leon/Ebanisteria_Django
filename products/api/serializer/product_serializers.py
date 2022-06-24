@@ -28,9 +28,10 @@ class ProductoSerializers(serializers.ModelSerializer):
             'fechaFinalizacion': instance.fechaFinalizacion,
 
             'estadoProducto': instance.estadoProducto,
+            'estadoPromocion': instance.estadoPromocion,
+            
             'destacado': instance.destacado,
             'tiempoProducto': instance.tiempoProducto,
-            'estadopromocion': instance.estadoPromocion,
             
             'idCategoria': [
                 instance.idCategoria.idCategoria,
