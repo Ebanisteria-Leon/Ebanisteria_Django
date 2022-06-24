@@ -18,13 +18,13 @@ class PromocionViewSet(viewsets.ModelViewSet):
     filterset_fields = ['productoExtra',
                         'valorDescuento', 'idProducto__nombre']
     search_fields = ['productoExtra', 'valorDescuento', 'idProducto__nombre']
-    ordering_fields = ['idPromocion__nombre']
+    ordering_fields = ['idPromociones__nombre']
     
     def get_queryset(self, pk = None):
         if pk is None:
             return self.get_serializer().Meta.model.objects.filter(estadoCreacion = True)
 
-        return self.get_serializer().Meta.model.objects.filter(idPromocion = pk, estadoCreacion = True).first()
+        return self.get_serializer().Meta.model.objects.filter(idPromociones = pk, estadoCreacion = True).first()
     
     def create(self, request):
         serializer = PromocionSerializers(data = request.data)
@@ -40,12 +40,12 @@ class PromocionViewSet(viewsets.ModelViewSet):
             promocion_serializer = PromocionSerializers(self.get_queryset(pk), data = request.data)
             
             if promocion_serializer.is_valid():
-                return Response({'data': promocion_serializer.data, 'message': 'Promocion actualizada correctamente'}, status = status.HTTP_200_ok)
+                return Response({'data': promocion_serializer.data, 'message': 'Promocion actualizada correctamente'}, status = status.HTTP_200_OK)
             
             return Response(promocion_serializer.errors, status = status.HTTP_400_BAD_REQUEST)
     
     def destroy(self, request, pk = None):
-        promocion = self.get_queryset().filter(idPromocion = pk).first()
+        promocion = self.get_queryset().filter(idPromociones = pk).first()
         
         if promocion:
             promocion.state = False
