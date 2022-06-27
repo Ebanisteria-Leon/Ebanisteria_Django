@@ -9,12 +9,12 @@ class CustomTokenObtainPairSerializers(TokenObtainPairSerializer):
 class CustomUserSerializers(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ('id', 'username', 'email', 'name', 'last_name', 'rolUser', 'image', 'codigoVerificacion')
+        fields = ('id', 'username', 'email', 'name', 'last_name', 'rolUser', 'image', 'codigoVerificacion', 'password')
 
 class UserSerializers(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = '__all__'
+        fields = ('id', 'username', 'email', 'name', 'last_name', 'rolUser', 'image', 'codigoVerificacion', 'password')
 
     def create(self, validated_data):
         user = User(**validated_data)
@@ -23,15 +23,14 @@ class UserSerializers(serializers.ModelSerializer):
         return user
 
 class UpdateUserSerializers(serializers.ModelSerializer):
-
     class Meta:
         model = User
-        fields = ('id', 'username', 'email', 'name', 'last_name', 'rolUser', 'image', 'codigoVerificacion')
+        fields = ('id', 'username', 'email', 'name', 'last_name', 'rolUser', 'image', 'codigoVerificacion', 'password')
 
 class UserListSerializers(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ('id', 'username', 'email', 'name', 'last_name', 'rolUser', 'image', 'codigoVerificacion')
+        fields = ('id', 'username', 'email', 'name', 'last_name', 'rolUser', 'image', 'codigoVerificacion', 'password')
 
 class PasswordSerializers(serializers.Serializer):
     password = serializers.CharField(max_length = 255, min_length = 6, write_only = True)
