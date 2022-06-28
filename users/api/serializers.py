@@ -27,6 +27,18 @@ class UpdateUserSerializers(serializers.ModelSerializer):
         model = User
         fields = ('id', 'username', 'email', 'name', 'last_name', 'rolUser', 'image', 'codigoVerificacion', 'password')
 
+    def update(self, instance, validated_data):
+        if 'password' not in validated_data:
+            update_user = super().update(instance, validated_data)
+            update_user.save()
+            return update_user
+        
+        else:
+            update_user = super().update(instance, validated_data)
+            update_user.set_password(validated_data['password'])
+            update_user.save()
+            return update_user
+
 class UserListSerializers(serializers.ModelSerializer):
     class Meta:
         model = User
