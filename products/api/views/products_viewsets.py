@@ -55,7 +55,7 @@ class ProductoViewSet(viewsets.ModelViewSet):
 
         return Response({'error': 'No existe un Producto con estos datos!'}, status=status.HTTP_400_BAD_REQUEST)
 
-    @scheduler.scheduled_job('interval', seconds = 60)
+    @scheduler.scheduled_job('interval', day = 1)
     def validacion_destacado_fecha_producto():
         producto_detalle = Producto.objects.filter()
         for de_producto in producto_detalle:
