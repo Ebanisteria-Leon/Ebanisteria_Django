@@ -52,14 +52,14 @@ class Producto(BaseModel):
     def __str__(self):
         return self.nombre
     
-    @property
+    """@property
     def fecha_limite_producto(self):
         fechaInicio = date.today()
 
         if self.fechaFinalizacion > fechaInicio:
             return True
         elif fechaInicio > self.fechaFinalizacion:
-            return False
+            return False"""
 
 #* Tabla de Promociones
 class Promocion(BaseModel):
@@ -83,11 +83,11 @@ class Promocion(BaseModel):
     def __str__(self):
         return f'Oferta del producto : {self.nombre}'
     
-    @property
+    """@property
     def fecha_limite_promocion(self):
         fechaInicio = date.today()
 
         if self.fechaFinalizacion > fechaInicio:
             return True
         elif fechaInicio > self.fechaFinalizacion:
-            return False
+            return False"""

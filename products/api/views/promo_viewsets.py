@@ -55,7 +55,7 @@ class PromocionViewSet(viewsets.ModelViewSet):
         
         return Response({'error': 'No existe una Promocion con estos datos'}, status = status.HTTP_400_BAD_REQUEST)
 
-    @scheduler.scheduled_job('interval', seconds=60)
+    """@scheduler.scheduled_job('interval', seconds=60)
     def validacion_destacado_fecha_promocion():
         promocion_detalle = Promocion.objects.filter()
         for de_promocion in promocion_detalle:
@@ -70,4 +70,4 @@ class PromocionViewSet(viewsets.ModelViewSet):
                 else:
                     pass
 
-    scheduler.start()
+    scheduler.start()"""
