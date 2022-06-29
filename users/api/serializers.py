@@ -25,7 +25,7 @@ class UserSerializers(serializers.ModelSerializer):
 class UpdateUserSerializers(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ('id', 'username', 'email', 'name', 'last_name', 'rolUser', 'image', 'codigoVerificacion')
+        fields = ('id', 'username', 'email', 'name', 'last_name', 'rolUser', 'image', 'codigoVerificacion', 'password')
 
     def update(self, instance, validated_data):
         if 'password' not in validated_data:
