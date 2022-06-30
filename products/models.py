@@ -34,8 +34,8 @@ class Producto(BaseModel):
     imagen = models.TextField(verbose_name = 'Nombre producto Imagenes', null = True, blank = True)
     imagen2 = models.TextField(verbose_name = 'Nombre producto Imagenes 2', null = True, blank = True)
 
-    fechaInicio = models.DateField(verbose_name = 'Fecha de Inicio')
-    fechaFinalizacion = models.DateField(verbose_name = 'Fecha de Finalizacion')
+    fechaInicio = models.DateField(verbose_name = 'Fecha de Inicio', blank = True, null =  True)
+    fechaFinalizacion = models.DateField(verbose_name = 'Fecha de Finalizacion', blank = True, null =  True)
 
     estadoProducto = models.CharField(verbose_name = 'Estado del Producto', max_length = 30, default = 'D')
     estadoPromocion = models.CharField(verbose_name = 'Estado de la Promocion', default = 'NOP', max_length = 15)

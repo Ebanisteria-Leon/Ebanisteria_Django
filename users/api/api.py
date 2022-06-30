@@ -20,17 +20,7 @@ class UserViewSet(viewsets.GenericViewSet):
     def get_queryset(self):
         if self.queryset is None:
             self.queryset = self.model.objects\
-                                .filter(is_active = True)\
-                                .values(
-                                    'id',
-                                    'username',
-                                    'email',
-                                    'name',
-                                    'last_name',
-                                    'image',
-                                    'rolUser',
-                                    'codigoVerificacion'
-                                )
+                                .filter(is_active = True)
         
         return self.queryset
     
