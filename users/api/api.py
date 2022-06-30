@@ -25,7 +25,7 @@ class UserViewSet(viewsets.GenericViewSet):
     #* Queryset
     def get_queryset(self, pk = None):
         if self.queryset is None:
-            self.queryset = self.model.objects.filter(id = pk)
+            self.queryset = self.model.objects.filter(is_active = True or False)
         
         return self.queryset
     
