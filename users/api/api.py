@@ -1,6 +1,6 @@
 from django.shortcuts import get_object_or_404
 
-from rest_framework import status, viewsets
+from rest_framework import status, viewsets, filters
 from rest_framework.decorators import action
 from rest_framework.response import Response
 
@@ -13,13 +13,19 @@ class UserViewSet(viewsets.GenericViewSet):
     list_serializer_class = UserListSerializers
     queryset = None
     
+    filter_backends = [filters.SearchFilter, filters.OrderingFilter]
+
+    search_fields = ['username', 'email', 'rolUser']
+
+    ordering_fields = ['id']
+    
     def get_object(self, pk):
         return get_object_or_404(self.model, pk = pk)
     
     #* Queryset
-    def get_queryset(self):
+    def get_queryset(self, pk = None):
         if self.queryset is None:
-            self.queryset = self.model.objects.filter(is_active = True)
+            self.queryset = self.model.objects.filter(id = pk)
         
         return self.queryset
     
