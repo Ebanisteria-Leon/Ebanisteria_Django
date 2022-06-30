@@ -76,7 +76,7 @@ CORS_ALLOWED_ORIGIN = [
     'http://localhost:3000',
     'http://127.0.0.1:3000',
     'https://ebanisteria-leon.netlify.app',
-    'https://ebanisteria-leon.netlify.app'
+    'https://ebanisteria-leon.herokuapp.com'
 ]
 
 CORS_ORIGIN_WHITELIST = CORS_ALLOWED_ORIGIN
