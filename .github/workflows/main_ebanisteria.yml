@@ -60,4 +60,4 @@ jobs:
         with:
           app-name: 'Ebanisteria'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_632296195B4E43C1A35AB14B49322183 }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_AE233628F0AC4D7684D433134060079B }}
